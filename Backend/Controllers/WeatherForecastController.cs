@@ -1,3 +1,4 @@
+using Bibilioteca.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1.Controllers
@@ -21,13 +22,7 @@ namespace WebApplication1.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<Livro> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Livro
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+
         }
     }
 }

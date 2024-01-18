@@ -1,4 +1,4 @@
-namespace WebApplication1;
+namespace Bibilioteca.Models;
 
 public class Livro
 {
