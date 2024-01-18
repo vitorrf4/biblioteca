@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<Livro> Get()
         {
-
+            return null;
         }
     }
 }
