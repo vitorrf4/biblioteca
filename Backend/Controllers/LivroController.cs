@@ -31,7 +31,6 @@ public class LivroController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Livro>> GetById([FromRoute] int id)
     {
-        // include categorias
         var livro = await _context.Livro
             .Include(l => l.Generos)
             .Where(l => l.Id == id)
