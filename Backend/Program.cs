@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BibilotecaContext>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -19,9 +20,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+app.UseCors(options => options.WithOrigins("http://localhost:4200"));
 
 app.Run();

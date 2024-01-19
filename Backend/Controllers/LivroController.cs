@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApplication1.Controllers;
 
 [ApiController]
-[Route("livro/")]
+[Route("livros/")]
 public class LivroController : ControllerBase
 {
     private BibilotecaContext _context;
