@@ -1,5 +1,11 @@
-<ul>
-  <li *ngFor="let livro of livros">
-    {{livro}}
-  </li>
-</ul>
+<div id="list_container">
+  <div *ngFor="let livro of livros" class="list_div">
+    <p>Titulo: {{livro.titulo}}</p>
+    <p>Autor: {{livro.autor}}</p>
+    <p>Data de Publicação: {{livro.dataPublicacao}}</p>
+    <p>Cópias: {{livro.copias}}</p>
+    <p>Gêneros:
+      <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
+    </p>
+  </div>
+</div>
