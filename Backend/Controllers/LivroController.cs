@@ -21,7 +21,9 @@ public class LivroController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Livro>>> GetAll()
     {
-        var livros = await _context.Livro.ToListAsync();
+        var livros = await _context.Livro
+            .Include(l => l.Generos)
+            .ToListAsync();
 
         return Ok(livros);
     }
@@ -30,7 +32,11 @@ public class LivroController : ControllerBase
     public async Task<ActionResult<Livro>> GetById([FromRoute] int id)
     {
         // include categorias
-        var livro = await _context.Livro.FindAsync(id);
+        var livro = await _context.Livro
+            .Include(l => l.Generos)
+            .Where(l => l.Id == id)
+            .FirstAsync();
+
         if (livro == null)
             return NotFound();
 
