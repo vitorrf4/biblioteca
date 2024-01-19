@@ -2,7 +2,7 @@ namespace Bibilioteca.Models;
 
 public class Livro
 {
-    public int Id { get; private set; }
+    public int Id { get; set; }
     public string Titulo { get; set; }
     public string Autor { get; set; }
     public DateOnly DataPublicacao { get; set; }
