@@ -15,4 +15,17 @@ export class ListarComponent {
       this.livros = res;
     });
   }
+
+  deletarLivro(id: number, index: number) {
+    this.service.deletar(id).subscribe({
+      next: () => {
+        alert("Item deletado");
+        this.livros.splice(index, 1);
+      },
+      error: e => {
+        alert("Erro na aplicação, tente mais tarde");
+        console.log(e);
+      }
+    })
+  }
 }

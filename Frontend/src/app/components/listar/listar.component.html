@@ -1,5 +1,5 @@
 <div id="list_container">
-  <div *ngFor="let livro of livros" class="list_div">
+  <div *ngFor="let livro of livros;index as i" class="list_div">
     <p>Titulo: {{livro.titulo}}</p>
     <p>Autor: {{livro.autor}}</p>
     <p>Data de Publicação: {{livro.dataPublicacao}}</p>
@@ -7,5 +7,9 @@
     <p>Gêneros:
       <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
     </p>
+
+    <button>Atualizar</button>
+    <button (click)="deletarLivro(livro.id, i)">Deletar</button>
   </div>
+
 </div>
