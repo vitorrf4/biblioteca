@@ -1,29 +1,29 @@
 using Bibilioteca.Data;
 using Bibilioteca.Models;
+using Bibilioteca.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
-namespace WebApplication1.Controllers;
+namespace Biblioteca.Controllers;
 
 [ApiController]
 [Route("livros/")]
 public class LivroController : ControllerBase
 {
-    private BibilotecaContext _context;
     private readonly ILogger<LivroController> _logger;
+    private readonly LivroService _service; 
 
-    public LivroController(BibilotecaContext context, ILogger<LivroController> logger)
+    public LivroController(ILogger<LivroController> logger, LivroService service)
     {
         _logger = logger;
-        _context = context;
+        _service = service;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Livro>>> GetAll()
     {
-        var livros = await _context.Livro
-            .Include(l => l.Generos)
-            .ToListAsync();
+        var livros = await _service.GetAllLivros();
 
         return Ok(livros);
     }
@@ -31,10 +31,7 @@ public class LivroController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Livro>> GetById([FromRoute] int id)
     {
-        var livro = await _context.Livro
-            .Include(l => l.Generos)
-            .Where(l => l.Id == id)
-            .FirstAsync();
+        var livro = await _service.GetLivroById(id);
 
         if (livro == null)
             return NotFound();
@@ -45,23 +42,15 @@ public class LivroController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Livro livro)
     {
-        await _context.AddAsync(livro);
-        await _context.SaveChangesAsync();
+        await _service.CreateLivro(livro);
 
-        return Created($"livros/${livro.Id}", livro);
+        return Created($"livros/{livro.Id}", livro);
     }
 
     [HttpPut]
     public async Task<IActionResult> Update(Livro livro)
     {
-        var livroDb = await _context.Livro.FindAsync(livro.Id);
-        if (livroDb == null)
-            return NotFound();
-
-        _context.Entry(livroDb).State = EntityState.Detached;
-
-        _context.Livro.Update(livro);
-        await _context.SaveChangesAsync();
+        await _service.UpdateLivro(livro);
 
         return NoContent();
     }
@@ -69,12 +58,7 @@ public class LivroController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var livro = await _context.Livro.FindAsync(id);
-        if (livro == null)
-            return NotFound();
-
-        _context.Livro.Remove(livro);
-        await _context.SaveChangesAsync();
+        await _service.DeleteLivro(id);
 
         return NoContent();
     }
