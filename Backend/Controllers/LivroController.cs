@@ -43,12 +43,12 @@ public class LivroController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Livro livro)
+    public async Task<IActionResult> Create([FromBody] Livro livro)
     {
         await _context.AddAsync(livro);
         await _context.SaveChangesAsync();
 
-        return Created($"livros/{livro.Id}", livro);
+        return Created($"livros/${livro.Id}", livro);
     }
 
     [HttpPut]
