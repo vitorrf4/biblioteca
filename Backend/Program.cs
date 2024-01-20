@@ -1,14 +1,16 @@
 using Bibilioteca.Data;
+using Bibilioteca.Repositories;
+using Bibilioteca.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BibilotecaContext>();
 builder.Services.AddCors();
+builder.Services.AddDbContext<BibilotecaContext>();
+builder.Services.AddTransient<LivroService>();
+builder.Services.AddTransient<LivroRepository>();
 
 var app = builder.Build();
 
