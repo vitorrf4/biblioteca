@@ -23,7 +23,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.UseCors(options => options.WithOrigins("http://localhost:4200")
-            .AllowAnyMethod().AllowAnyHeader()
-            .AllowCredentials());
+            .AllowAnyMethod().AllowAnyHeader());
 
 app.Run();

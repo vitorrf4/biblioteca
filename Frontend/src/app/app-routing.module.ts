@@ -5,7 +5,7 @@ import {CadastrarComponent} from "./components/cadastrar/cadastrar.component";
 
 const routes: Routes = [
   { path: "listar", component: ListarComponent },
-  { path: "cadastrar", component: CadastrarComponent }
+  { path: "salvar", component: CadastrarComponent }
 ];
 
 @NgModule({
