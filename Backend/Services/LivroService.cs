@@ -61,6 +61,8 @@ public class LivroService
                 livroDb.Generos.Add(g);
         }
 
+        _context.Entry(livroDb).CurrentValues.SetValues(livro);
+
         _context.Attach(livroDb);
         _context.Update(livroDb);
 
