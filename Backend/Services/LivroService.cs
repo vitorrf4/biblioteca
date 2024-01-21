@@ -51,7 +51,7 @@ public class LivroService
         {
             var genero = livroDb.Generos[i];
 
-            if (!livro.Generos.Contains(genero))
+            if (livro.Generos.Find(g => g.Id == genero.Id) == null)
                 livroDb.Generos.Remove(genero);
         }
 
