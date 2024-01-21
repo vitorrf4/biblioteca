@@ -1,40 +1,36 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h2>Livro</h2>
 
-  <div>
-    <label class="block">Titulo</label>
-    <input type="text" formControlName="titulo" required/>
-  </div>
+  <label class="block">Titulo</label>
+  <input type="text" formControlName="titulo" required/>
 
-  <div>
-    <label class="block">Autor</label>
-    <input type="text" class="form-control form-control" formControlName="autor" required />
-  </div>
+  <label class="block">Autor</label>
+  <input type="text" formControlName="autor" required />
 
-  <div>
-    <label class="block">Data de Publicação</label>
-    <input type="date" class="form-control form-control" formControlName="dataPublicacao" required />
-  </div>
+  <label class="block">Data de Publicação</label>
+  <input type="date" formControlName="dataPublicacao" required />
 
-  <div>
-    <label class="block">Copias</label>
-    <input type="number" class="form-control form-control" formControlName="copias" required />
-  </div>
+  <label class="block">Copias</label>
+  <input type="number" formControlName="copias" required />
 
   <div formArrayName="generos">
     <h2>Gêneros</h2>
 
     <div *ngFor="let genero of generos.controls; let i=index" [formGroupName]="i">
       <label>Gênero {{i+1}}:</label>
-      <input type="text" formControlName="nome">
+      <input type="text" formControlName="nome" list="generos">
+      <datalist id="generos">
+        <option *ngFor="let g of generosList" >{{g.nome}}
+      </datalist>
       <button (click)="removeGenero(i)">X</button>
     </div>
 
     <button type="button" (click)="addGenero()">+ Adicionar gênero</button>
   </div>
 
-
   <br>
   <button type="submit">Salvar</button>
 </form>
+
+<p>{{debug | json}}</p>
 

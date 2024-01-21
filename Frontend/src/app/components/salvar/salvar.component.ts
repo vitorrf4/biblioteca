@@ -16,6 +16,10 @@ export class SalvarComponent {
   id: number = 0;
   generosList: Genero[] = [];
 
+  get debug() {
+    return this.form.value;
+  }
+
   constructor(private livrosService: LivrosService,
               private generoService: GenerosService,
               private route: Router,
