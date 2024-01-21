@@ -1,11 +1,17 @@
 <div>
-<form (submit)="buscarLivro()" [formGroup]="queryForm">
+<form  [formGroup]="queryForm">
     <h3>Filtrar por</h3>
     <label class="block">Título</label>
     <input type="text" formControlName="titulo">
     <label class="block">Autor</label>
     <input type="text" formControlName="autor">
 
+    <label class="block">Generos</label>
+    <select>
+        <option *ngFor="let genero of generos">{{genero.nome}}</option>
+    </select>
+
+    <br><br>
     <section>
         <b>Lançado entre</b>
         <label class="block">Data Inicial</label>
@@ -15,9 +21,10 @@
     </section>
 
     <label>Cópias Disponiveis?</label>
-    <input type="checkbox">
+    <input type="checkbox" formControlName="areThereCopies">
 
-    <button class="block">Buscar</button>
-    <button>Limpar filtros</button>
+    <br><br>
+    <button (click)="buscarLivro()"  class="block">Buscar</button>
+    <button (click)="limparFiltros()">Limpar filtros</button>
 </form>
 </div>
