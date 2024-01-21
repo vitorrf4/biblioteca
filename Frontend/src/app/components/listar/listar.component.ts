@@ -9,8 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./listar.component.css']
 })
 export class ListarComponent implements OnInit {
-  @Output() allLivros: Livro[] = [];
-  @Output() livrosFiltrados: Livro[] = [];
+  allLivros: Livro[] = [];
+  livrosFiltrados: Livro[] = [];
   hasNoBooks = false;
 
   constructor(private service: LivrosService,

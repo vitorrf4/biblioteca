@@ -1,0 +1,11 @@
+div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    top: 5%;
+    position: sticky;
+    width: 200px;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}

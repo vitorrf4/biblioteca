@@ -1,7 +1,10 @@
+#wrapper_div {
+  display: flex;
+  gap: 10px;
+}
 #list_container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-flow: row wrap;
 }
 .book_div {
   padding: 5px;

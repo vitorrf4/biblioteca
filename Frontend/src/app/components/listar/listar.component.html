@@ -1,22 +1,25 @@
-<app-filtro-livros [allLivros]="allLivros"
-                   (onSearch)="filtrarLivros($event)">
-</app-filtro-livros>
+<div id="wrapper_div">
+  <app-filtro-livros [allLivros]="allLivros"
+                     (onSearch)="filtrarLivros($event)">
+  </app-filtro-livros>
 
-<div *ngIf="hasNoBooks">
-  <h2>Nenhum livro encontrado</h2>
-</div>
+  <div id="list_container">
+    <div *ngIf="hasNoBooks">
+      <h2>Nenhum livro encontrado</h2>
+    </div>
 
-<div id="list_container">
-  <div *ngFor="let livro of livrosFiltrados;index as i" class="book_div">
-    <p>Titulo: {{livro.titulo}}</p>
-    <p>Autor: {{livro.autor}}</p>
-    <p>Data de Publicação: {{livro.dataPublicacao}}</p>
-    <p>Cópias: {{livro.copias}}</p>
-    <p>Gêneros:
-      <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
-    </p>
+    <div *ngFor="let livro of livrosFiltrados;index as i" class="book_div">
+      <p>Titulo: {{livro.titulo}}</p>
+      <p>Autor: {{livro.autor}}</p>
+      <p>Data de Publicação: {{livro.dataPublicacao}}</p>
+      <p>Cópias: {{livro.copias}}</p>
+      <p>Gêneros:
+        <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
+      </p>
 
-    <button (click)="irParaSalvarPagina(livro)">Atualizar</button>
-    <button (click)="deletarLivro(livro.id, i)">Deletar</button>
+      <button (click)="irParaSalvarPagina(livro)">Atualizar</button>
+      <button (click)="deletarLivro(livro.id, i)">Deletar</button>
+    </div>
   </div>
+
 </div>
