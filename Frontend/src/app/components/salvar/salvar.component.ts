@@ -7,10 +7,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cadastrar',
-  templateUrl: './cadastrar.component.html',
-  styleUrls: ['./cadastrar.component.css']
+  templateUrl: './salvar.html',
+  styleUrls: ['./salvar.component.css']
 })
-export class CadastrarComponent {
+export class SalvarComponent {
   form: FormGroup;
   id: number = 0;
 

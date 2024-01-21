@@ -5,14 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { ListarComponent } from './components/listar/listar.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { CadastrarComponent } from './components/cadastrar/cadastrar.component';
+import { SalvarComponent } from './components/salvar/salvar.component';
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarComponent,
-    CadastrarComponent
+    SalvarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CadastrarComponent } from './cadastrar.component';
+import { SalvarComponent } from './salvar.component';
 
 describe('CadastrarComponent', () => {
-  let component: CadastrarComponent;
-  let fixture: ComponentFixture<CadastrarComponent>;
+  let component: SalvarComponent;
+  let fixture: ComponentFixture<SalvarComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CadastrarComponent]
+      declarations: [SalvarComponent]
     });
-    fixture = TestBed.createComponent(CadastrarComponent);
+    fixture = TestBed.createComponent(SalvarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ListarComponent} from "./components/listar/listar.component";
-import {CadastrarComponent} from "./components/cadastrar/cadastrar.component";
+import {SalvarComponent} from "./components/salvar/salvar.component";
 
 const routes: Routes = [
   { path: "listar", component: ListarComponent },
-  { path: "salvar", component: CadastrarComponent },
-  { path: "salvar/:id", component: CadastrarComponent }
+  { path: "salvar", component: SalvarComponent },
+  { path: "salvar/:id", component: SalvarComponent }
 ];
 
 @NgModule({
