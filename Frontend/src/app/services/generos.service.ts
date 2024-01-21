@@ -11,7 +11,7 @@ export class GenerosService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getAll() {
     return this.http.get<Genero[]>(`${this.apiUrl}/generos`);
   }
 }

@@ -11,23 +11,23 @@ export class LivrosService {
 
   constructor(private http: HttpClient) { }
 
-  listar() {
+  getAll() {
     return this.http.get<Livro[]>(`${this.apiUrl}/livros`);
   }
 
-  buscarPorId(id: number) {
+  getById(id: number) {
     return this.http.get<Livro>(`${this.apiUrl}/livros/${id}`);
   }
 
-  cadastrar(livro: Livro) {
+  create(livro: Livro) {
     return this.http.post<Livro>(`${this.apiUrl}/livros`, livro);
   }
 
-  atualizar(livro: Livro) {
+  update(livro: Livro) {
     return this.http.put(`${this.apiUrl}/livros`, livro);
   }
 
-  deletar(id: number) {
+  delete(id: number) {
     return this.http.delete(`${this.apiUrl}/livros/${id}`);
   }
 }

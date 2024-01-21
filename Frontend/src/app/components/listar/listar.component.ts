@@ -12,13 +12,13 @@ export class ListarComponent {
   livros: Livro[] = [];
 
   constructor(private service: LivrosService, private router: Router) {
-    service.listar().subscribe(res => {
+    service.getAll().subscribe(res => {
       this.livros = res;
     });
   }
 
   deletarLivro(id: number, index: number) {
-    this.service.deletar(id).subscribe({
+    this.service.delete(id).subscribe({
       next: () => {
         alert("Item deletado");
         this.livros.splice(index, 1);

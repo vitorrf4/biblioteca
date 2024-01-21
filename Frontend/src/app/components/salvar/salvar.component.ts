@@ -58,9 +58,9 @@ export class SalvarComponent {
     let salvar;
 
     if (this.id) {
-      salvar = this.service.atualizar(livro);
+      salvar = this.service.update(livro);
     } else {
-      salvar = this.service.cadastrar(livro);
+      salvar = this.service.create(livro);
     }
 
     salvar.subscribe({
