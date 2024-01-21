@@ -1,5 +1,23 @@
-<form (submit)="buscarLivro(query.value)">
-    <label>Pesquisa por título</label>
-    <input type="text" #query>
-    <button>Buscar</button>
+<div>
+<form (submit)="buscarLivro()" [formGroup]="queryForm">
+    <h3>Filtrar por</h3>
+    <label class="block">Título</label>
+    <input type="text" formControlName="titulo">
+    <label class="block">Autor</label>
+    <input type="text" formControlName="autor">
+
+    <section>
+        <b>Lançado entre</b>
+        <label class="block">Data Inicial</label>
+        <input type="date" formControlName="dataInicial">
+        <label class="block">Data Final</label>
+        <input type="date" formControlName="dataFinal">
+    </section>
+
+    <label>Cópias Disponiveis?</label>
+    <input type="checkbox">
+
+    <button class="block">Buscar</button>
+    <button>Limpar filtros</button>
 </form>
+</div>
