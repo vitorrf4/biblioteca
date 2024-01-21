@@ -1,83 +1,86 @@
-﻿using Bibilioteca.Models;
-using Bibilioteca.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Bibilioteca.Data;
+using Bibilioteca.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bibilioteca.Services;
 
 public class LivroService
 {
-    private LivroRepository _repository;
+    private readonly BibilotecaContext _context;
 
-    public LivroService(LivroRepository repository)
+    public LivroService(BibilotecaContext context)
     {
-        _repository = repository;
+        _context = context;
     }
 
-    public async Task<IEnumerable<Livro>> GetAllLivros()
+    public async Task<ICollection<Livro>> GetAllLivros()
     {
-        return await _repository.GetAllLivros();
+        return await _context.Livro
+            .Include(l => l.Generos)
+            .ToListAsync();
     }
 
-    public async Task<Livro> GetLivroById(int id)
+    public async Task<Livro?> GetLivroById(int id)
     {
-        return await _repository.GetLivroById(id);
+        return await _context.Livro
+            .Include(l => l.Generos)
+            .FirstOrDefaultAsync(l => l.Id == id);
+    }
+
+    public async Task<bool> DoesLivroExists(int id)
+    {
+        return await _context.Livro.AnyAsync(livro => livro.Id == id);
     }
 
     public async Task<bool> CreateLivro(Livro livro)
     {
-        return await _repository.CreateLivro(livro);
+        await _context.Livro.AddAsync(livro);
+        return await Save();
     }
 
     public async Task<bool> UpdateLivro(Livro livro)
     {
-        return await _repository.UpdateLivro(livro);
+        var livroDb = await _context.Livro
+            .Include(l => l.Generos)
+            .FirstOrDefaultAsync(l => l.Id == livro.Id);
+
+        if (livroDb == null)
+            return false;
+
+        for (var i = 0; i < livroDb.Generos.Count; i++)
+        {
+            var genero = livroDb.Generos[i];
+
+            if (!livro.Generos.Contains(genero))
+                livroDb.Generos.Remove(genero);
+        }
+
+        foreach (var g in livro.Generos)
+        {
+            if (g.Id == 0)
+                livroDb.Generos.Add(g);
+        }
+
+        _context.Attach(livroDb);
+        _context.Update(livroDb);
+
+        return await Save();
     }
 
     public async Task<bool> DeleteLivro(int id)
     {
-        var livro = await _repository.GetLivroById(id);
+        var livro = await GetLivroById(id);
+        if (livro == null)
+            return false;
 
-        return await _repository.DeleteLivro(livro);
+        _context.Remove(livro);
+        return await Save();
     }
 
-    //[HttpPut]
-    //public async Task<IActionResult> Update(Livro livro)
-    //{
-    //    var livroDb = await _context.Livro
-    //        .Include(l => l.Generos)
-    //        .FirstAsync(l => l.Id == livro.Id);
+    private async Task<bool> Save()
+    {
+        return await _context.SaveChangesAsync() >= 0;
+    }
 
-    //    if (livroDb == null)
-    //        return NotFound();
-
-    //    _context.Entry(livroDb).CurrentValues.SetValues(livro);
-
-    //    //UpdateGenerosOnLivro(livro, livroDb);
-
-    //    await _context.SaveChangesAsync();
-
-    //    return NoContent();
-    //}
-
-    //[NonAction]
-    //private void UpdateGenerosOnLivro(Livro livro, Livro livroDb)
-    //{
-    //    foreach (var genero in livroDb.Generos)
-    //    {
-    //        var updatedGenero = livro.Generos.FirstOrDefault(g => g.Id == genero.Id);
-
-    //        if (updatedGenero != null)
-    //            _context.Entry(genero).CurrentValues.SetValues(updatedGenero);
-    //        else
-    //            _context.Entry(genero).State = EntityState.Deleted;
-    //    }
-
-    //    foreach (var newGenero in livro.Generos.Where(g => g.Id == 0))
-    //    {
-    //        livroDb.Generos.Add(newGenero);
-    //    }
-
-    //}
 }
 

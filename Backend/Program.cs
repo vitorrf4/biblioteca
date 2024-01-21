@@ -1,5 +1,4 @@
 using Bibilioteca.Data;
-using Bibilioteca.Repositories;
 using Bibilioteca.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddDbContext<BibilotecaContext>();
 builder.Services.AddTransient<LivroService>();
-builder.Services.AddTransient<LivroRepository>();
 
 var app = builder.Build();
 

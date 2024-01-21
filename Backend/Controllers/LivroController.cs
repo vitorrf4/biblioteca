@@ -1,9 +1,6 @@
-using Bibilioteca.Data;
 using Bibilioteca.Models;
 using Bibilioteca.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Biblioteca.Controllers;
 
@@ -48,8 +45,12 @@ public class LivroController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Livro livro)
-    {
+    public async Task<IActionResult> Update([FromBody] Livro livro)
+    {    
+        var existsOnDb = await _service.DoesLivroExists(livro.Id);
+        if (!existsOnDb)
+            return NotFound();
+
         await _service.UpdateLivro(livro);
 
         return NoContent();
@@ -58,6 +59,10 @@ public class LivroController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
+        var existsOnDb = await _service.DoesLivroExists(id);
+        if (!existsOnDb)
+            return NotFound();
+
         await _service.DeleteLivro(id);
 
         return NoContent();
