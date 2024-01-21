@@ -20,51 +20,91 @@ public class LivroController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Livro>>> GetAll()
     {
-        var livros = await _service.GetAllLivros();
+        try
+        {
+            var livros = await _service.GetAllLivros();
 
-        return Ok(livros);
+            return Ok(livros);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Erro: " + e);
+            return StatusCode(500, "Erro na aplicação");
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Livro>> GetById([FromRoute] int id)
     {
-        var livro = await _service.GetLivroById(id);
+        try
+        {
+            var livro = await _service.GetLivroById(id);
 
-        if (livro == null)
-            return NotFound();
+            if (livro == null)
+                return NotFound();
 
-        return Ok(livro);
+            return Ok(livro);
+
+        } catch(Exception e)
+        {
+            _logger.LogError("Erro: " + e);
+            return StatusCode(500, "Erro na aplicação");
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Livro livro)
     {
-        await _service.CreateLivro(livro);
+        try
+        {
+            await _service.CreateLivro(livro);
 
-        return Created($"livros/{livro.Id}", livro);
+            return Created($"livros/{livro.Id}", livro);
+
+        } catch (Exception e)
+        {
+            _logger.LogError("Erro: " + e);
+            return StatusCode(500, "Erro na aplicação");
+        }
     }
 
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] Livro livro)
-    {    
-        var existsOnDb = await _service.DoesLivroExists(livro.Id);
-        if (!existsOnDb)
-            return NotFound();
+    {
+        try
+        {
+            var existsOnDb = await _service.DoesLivroExists(livro.Id);
+            if (!existsOnDb)
+                return NotFound();
 
-        await _service.UpdateLivro(livro);
+            await _service.UpdateLivro(livro);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Erro: " + e);
+            return StatusCode(500, "Erro na aplicação");
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var existsOnDb = await _service.DoesLivroExists(id);
-        if (!existsOnDb)
-            return NotFound();
+        try
+        {
+            var existsOnDb = await _service.DoesLivroExists(id);
+            if (!existsOnDb)
+                return NotFound();
 
-        await _service.DeleteLivro(id);
+            await _service.DeleteLivro(id);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Erro: " + e);
+            return StatusCode(500, "Erro na aplicação");
+        }
     }
 }
