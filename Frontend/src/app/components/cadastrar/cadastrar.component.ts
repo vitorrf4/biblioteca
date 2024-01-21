@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Genero} from "../../models/genero";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cadastrar',
@@ -10,10 +11,12 @@ import {Genero} from "../../models/genero";
   styleUrls: ['./cadastrar.component.css']
 })
 export class CadastrarComponent {
-  formularioLivro : FormGroup;
+  form: FormGroup;
+  id: number = 0;
 
-  constructor(private service: LivrosService) {
-    this.formularioLivro = new FormGroup({
+  constructor(private service: LivrosService,
+              private route: Router) {
+    this.form = new FormGroup({
       id: new FormControl(0),
       titulo: new FormControl(null),
       autor: new FormControl(null),
@@ -21,14 +24,35 @@ export class CadastrarComponent {
       copias: new FormControl(null),
       generos: new FormControl([]),
     });
+
+    const data = this.route.getCurrentNavigation()?.extras.state;
+
+    if (data) {
+      this.id = data['id'];
+      this.form.patchValue(data);
+    }
   }
 
-  cadastrarLivro() {
-    const livro: Livro = this.formularioLivro.value;
+  onSubmit() {
+    const livro: Livro = this.form.value;
+    let salvar;
 
-    console.log(livro);
-    this.service.cadastrar(livro).subscribe(res => {
-      console.log(res);
+    if (this.id) {
+      salvar = this.service.atualizar(livro);
+    } else {
+      salvar = this.service.cadastrar(livro);
+    }
+
+    salvar.subscribe({
+      next: async () => {
+        await this.route.navigateByUrl("listar");
+      },
+      error: e => {
+        // TODO: log errors on back not here
+        alert("Erro na aplicação, tente mais tarde");
+        console.log(e);
+      }
     });
+
   }
 }

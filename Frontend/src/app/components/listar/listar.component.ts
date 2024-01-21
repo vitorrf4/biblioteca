@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-listar',
@@ -10,7 +11,7 @@ import {LivrosService} from "../../services/livros.service";
 export class ListarComponent {
   livros: Livro[] = [];
 
-  constructor(private service: LivrosService) {
+  constructor(private service: LivrosService, private router: Router) {
     service.listar().subscribe(res => {
       this.livros = res;
     });
@@ -27,5 +28,9 @@ export class ListarComponent {
         console.log(e);
       }
     })
+  }
+
+  async irParaSalvarPagina(livro: Livro) {
+    await this.router.navigateByUrl(`salvar/${livro.id}`, {state: livro});
   }
 }

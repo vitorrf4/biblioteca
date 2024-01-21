@@ -8,7 +8,7 @@
       <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
     </p>
 
-    <button>Atualizar</button>
+    <button (click)="irParaSalvarPagina(livro)">Atualizar</button>
     <button (click)="deletarLivro(livro.id, i)">Deletar</button>
   </div>
 
