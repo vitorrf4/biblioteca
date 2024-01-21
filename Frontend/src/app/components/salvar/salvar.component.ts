@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Genero} from "../../models/genero";
@@ -15,14 +15,21 @@ export class SalvarComponent {
   id: number = 0;
 
   constructor(private service: LivrosService,
-              private route: Router) {
-    this.form = new FormGroup({
-      id: new FormControl(0),
-      titulo: new FormControl(null),
-      autor: new FormControl(null),
-      dataPublicacao: new FormControl(null),
-      copias: new FormControl(null),
-      generos: new FormControl([]),
+              private route: Router,
+              private fb: FormBuilder) {
+    this.form = this.fb.group({
+      id: [0],
+      titulo: [''],
+      autor: [''],
+      dataPublicacao: [new Date()],
+      copias: [0],
+      generos: this.fb.array([
+        this.fb.group({
+          id: [0],
+          nome: ['']
+        })
+      ]),
+
     });
 
     const data = this.route.getCurrentNavigation()?.extras.state;
@@ -31,6 +38,22 @@ export class SalvarComponent {
       this.id = data['id'];
       this.form.patchValue(data);
     }
+  }
+
+  get generos(): FormArray {
+    return this.form.get('generos') as FormArray;
+  }
+
+  addGenero() {
+    this.generos.push(this.fb.group({
+      id: [0],
+      nome: ['']
+    }));
+  }
+
+
+  removeGenero(index: number) {
+    this.generos.removeAt(index);
   }
 
   onSubmit() {
@@ -45,7 +68,7 @@ export class SalvarComponent {
 
     salvar.subscribe({
       next: async () => {
-        await this.route.navigateByUrl("listar");
+        await this.route.navigateByUrl("/listar");
       },
       error: e => {
         // TODO: log errors on back not here
