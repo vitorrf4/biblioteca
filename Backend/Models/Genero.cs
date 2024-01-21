@@ -1,4 +1,4 @@
-﻿namespace Bibilioteca.Models;
+﻿namespace Biblioteca.Models;
 
 public class Genero
 {

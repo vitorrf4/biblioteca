@@ -1,14 +1,14 @@
-﻿using Bibilioteca.Models;
+﻿using Biblioteca.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bibilioteca.Data;
+namespace Biblioteca.Data;
 
-public class BibilotecaContext : DbContext 
+public class BibliotecaContext : DbContext 
 {
     public DbSet<Livro> Livro { get; set; }
     public DbSet<Genero> Genero { get; set; }
 
-    public BibilotecaContext()
+    public BibliotecaContext()
     {
         Database.EnsureCreated();
     }

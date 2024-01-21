@@ -1,14 +1,14 @@
-﻿using Bibilioteca.Data;
-using Bibilioteca.Models;
+﻿using Biblioteca.Data;
+using Biblioteca.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bibilioteca.Services;
+namespace Biblioteca.Services;
 
 public class LivroService
 {
-    private readonly BibilotecaContext _context;
+    private readonly BibliotecaContext _context;
 
-    public LivroService(BibilotecaContext context)
+    public LivroService(BibliotecaContext context)
     {
         _context = context;
     }
