@@ -7,7 +7,7 @@ import {Livro} from "../models/livro";
   providedIn: 'root'
 })
 export class LivrosService {
-  apiUrl = enviroment.apiUrl;
+  private apiUrl = enviroment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

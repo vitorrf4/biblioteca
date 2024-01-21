@@ -7,7 +7,7 @@ import {Genero} from "../models/genero";
   providedIn: 'root'
 })
 export class GenerosService {
-  apiUrl = enviroment.apiUrl;
+  private apiUrl = enviroment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

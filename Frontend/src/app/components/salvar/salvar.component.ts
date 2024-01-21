@@ -4,6 +4,7 @@ import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Genero} from "../../models/genero";
 import {ActivatedRoute, Router} from "@angular/router";
+import {GenerosService} from "../../services/generos.service";
 
 @Component({
   selector: 'app-cadastrar',
@@ -13,10 +14,17 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class SalvarComponent {
   form: FormGroup;
   id: number = 0;
+  generosList: Genero[] = [];
 
-  constructor(private service: LivrosService,
+  constructor(private livrosService: LivrosService,
+              private generoService: GenerosService,
               private route: Router,
               private fb: FormBuilder) {
+
+    this.generoService.getAll().subscribe(res => {
+      this.generosList = res;
+    });
+
     this.form = this.fb.group({
       id: [0],
       titulo: [''],
@@ -58,9 +66,9 @@ export class SalvarComponent {
     let salvar;
 
     if (this.id) {
-      salvar = this.service.update(livro);
+      salvar = this.livrosService.update(livro);
     } else {
-      salvar = this.service.create(livro);
+      salvar = this.livrosService.create(livro);
     }
 
     salvar.subscribe({
