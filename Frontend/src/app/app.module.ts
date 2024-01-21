@@ -6,7 +6,7 @@ import { AppComponent } from './components/app/app.component';
 import { ListarComponent } from './components/listar/listar.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { SalvarComponent } from './components/salvar/salvar.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,12 +14,13 @@ import {ReactiveFormsModule} from "@angular/forms";
     ListarComponent,
     SalvarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		ReactiveFormsModule,
+		FormsModule
+	],
   providers: [],
   bootstrap: [AppComponent]
 })

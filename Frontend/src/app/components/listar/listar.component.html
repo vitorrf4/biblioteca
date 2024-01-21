@@ -1,5 +1,15 @@
+<form (submit)="buscarLivro(query.value)">
+  <label>Pesquisa por título</label>
+  <input type="text" #query>
+  <button>Buscar</button>
+</form>
+
+<div *ngIf="hasNoBooks">
+  <h2>Nenhum livro encontrado</h2>
+</div>
+
 <div id="list_container">
-  <div *ngFor="let livro of livros;index as i" class="list_div">
+  <div *ngFor="let livro of livrosFiltrados;index as i" class="book_div">
     <p>Titulo: {{livro.titulo}}</p>
     <p>Autor: {{livro.autor}}</p>
     <p>Data de Publicação: {{livro.dataPublicacao}}</p>
