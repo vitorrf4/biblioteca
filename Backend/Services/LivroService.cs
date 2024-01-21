@@ -34,8 +34,28 @@ public class LivroService
 
     public async Task<bool> CreateLivro(Livro livro)
     {
+        TrackExistingGeneros(livro.Generos);
+
         await _context.Livro.AddAsync(livro);
         return await Save();
+    }
+
+    private async void TrackExistingGeneros(List<Genero> generos)
+    {
+        foreach (var genero in generos)
+        {
+            var generoDb = await _context.Genero
+                .Where(g => g.Nome == genero.Nome)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            if (generoDb != null)
+            {
+                genero.Id = generoDb.Id;
+                _context.Attach(genero);
+            }
+        }
+
     }
 
     public async Task<bool> UpdateLivro(Livro livro)
@@ -61,6 +81,7 @@ public class LivroService
                 livroDb.Generos.Add(g);
         }
 
+        TrackExistingGeneros(livroDb.Generos);
         _context.Entry(livroDb).CurrentValues.SetValues(livro);
 
         _context.Attach(livroDb);
