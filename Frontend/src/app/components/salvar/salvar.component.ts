@@ -23,19 +23,18 @@ export class SalvarComponent {
       autor: [''],
       dataPublicacao: [new Date()],
       copias: [0],
-      generos: this.fb.array([
-        this.fb.group({
-          id: [0],
-          nome: ['']
-        })
-      ]),
+      generos: this.fb.array([]),
     });
 
-    const data = this.route.getCurrentNavigation()?.extras.state;
+    const livroFromList = this.route.getCurrentNavigation()?.extras.state;
 
-    if (data) {
-      this.id = data['id'];
-      this.form.patchValue(data);
+    if (livroFromList) {
+      this.id = livroFromList['id'];
+      this.form.patchValue(livroFromList);
+
+      for (let g of livroFromList['generos']) {
+        this.addGenero(g);
+      }
     }
   }
 
@@ -43,10 +42,10 @@ export class SalvarComponent {
     return this.form.get('generos') as FormArray;
   }
 
-  addGenero() {
+  addGenero(genero: Genero = new Genero('')) {
     this.generos.push(this.fb.group({
-      id: [0],
-      nome: ['']
+      id: genero.id,
+      nome: genero.nome
     }));
   }
 
