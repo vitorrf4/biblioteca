@@ -9,7 +9,14 @@ public class Livro
     public List<Genero> Generos { get; set; }
     public int Copias { get; set; }
 
-    public Livro() { }
+    public Livro() {
+        Id = 0;
+        Titulo = "";
+        Autor = "";
+        DataPublicacao = new DateOnly();
+        Generos = new List<Genero>();
+        Copias = 0;
+    }
 
     public Livro(string titulo, string autor, DateOnly dataPublicacao, List<Genero> generos, int copias = 0)
     {

@@ -7,6 +7,7 @@ public class Genero
 
     public Genero(string nome)
     {
+        Id = 0;
         Nome = nome;
     }
 }

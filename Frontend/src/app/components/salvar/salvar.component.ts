@@ -29,7 +29,6 @@ export class SalvarComponent {
           nome: ['']
         })
       ]),
-
     });
 
     const data = this.route.getCurrentNavigation()?.extras.state;
@@ -50,7 +49,6 @@ export class SalvarComponent {
       nome: ['']
     }));
   }
-
 
   removeGenero(index: number) {
     this.generos.removeAt(index);
