@@ -1,8 +1,6 @@
-<form (submit)="buscarLivro(query.value)">
-  <label>Pesquisa por título</label>
-  <input type="text" #query>
-  <button>Buscar</button>
-</form>
+<app-filtro-livros [allLivros]="allLivros"
+                   (onSearch)="filtrarLivros($event)">
+</app-filtro-livros>
 
 <div *ngIf="hasNoBooks">
   <h2>Nenhum livro encontrado</h2>
@@ -21,5 +19,4 @@
     <button (click)="irParaSalvarPagina(livro)">Atualizar</button>
     <button (click)="deletarLivro(livro.id, i)">Deletar</button>
   </div>
-
 </div>

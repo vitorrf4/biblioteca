@@ -7,12 +7,14 @@ import { ListarComponent } from './components/listar/listar.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { SalvarComponent } from './components/salvar/salvar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FiltroLivrosComponent } from './components/filtro-livros/filtro-livros.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarComponent,
-    SalvarComponent
+    SalvarComponent,
+    FiltroLivrosComponent
   ],
 	imports: [
 		BrowserModule,

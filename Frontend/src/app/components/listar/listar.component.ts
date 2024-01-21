@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Router} from "@angular/router";
@@ -9,8 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./listar.component.css']
 })
 export class ListarComponent implements OnInit {
-  allLivos: Livro[] = [];
-  livrosFiltrados: Livro[] = [];
+  @Output() allLivros: Livro[] = [];
+  @Output() livrosFiltrados: Livro[] = [];
   hasNoBooks = false;
 
   constructor(private service: LivrosService,
@@ -18,23 +18,14 @@ export class ListarComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(res => {
-      this.allLivos = res;
-      this.livrosFiltrados = this.allLivos;
+      this.allLivros = res;
+      this.livrosFiltrados = this.allLivros;
     });
   }
 
-  buscarLivro(query: string) {
-    const tituloQuery = query.toLowerCase();
-    this.livrosFiltrados = this.allLivos.filter(l => {
-      const titulo = l.titulo.toLowerCase();
-      return titulo.search(tituloQuery) != -1;
-    });
-
-    if (this.livrosFiltrados.length == 0) {
-      return this.hasNoBooks = true;
-    }
-
-    return this.hasNoBooks = false;
+  filtrarLivros(livrosFiltrados: Livro[]) {
+    this.livrosFiltrados = livrosFiltrados;
+    this.hasNoBooks = !livrosFiltrados.length;
   }
 
   deletarLivro(id: number, index: number) {
