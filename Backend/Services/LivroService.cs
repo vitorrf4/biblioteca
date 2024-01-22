@@ -75,7 +75,6 @@ public class LivroService
                 _context.Attach(genero);
             }
         }
-
     }
 
     public async Task<bool> UpdateLivro(Livro livro)
