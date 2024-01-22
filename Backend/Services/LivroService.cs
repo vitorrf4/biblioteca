@@ -87,21 +87,21 @@ public class LivroService
         if (livroDb == null)
             return false;
 
-        //for (var i = 0; i < livroDb.Generos.Count; i++)
-        //{
-        //    var genero = livroDb.Generos[i];
+        for (var i = 0; i < livroDb.Generos.Count; i++)
+        {
+            var genero = livroDb.Generos[i];
 
-        //    if (livro.Generos.Find(g => g.Id == genero.Id) == null)
-        //        livroDb.Generos.Remove(genero);
-        //}
+            if (livro.Generos.Find(g => g.Id == genero.Id) == null)
+                livroDb.Generos.Remove(genero);
+        }
 
-        //foreach (var g in livro.Generos)
-        //{
-        //    if (g.Id == 0)
-        //        livroDb.Generos.Add(g);
-        //}
+        foreach (var g in livro.Generos)
+        {
+            if (g.Id == 0)
+                livroDb.Generos.Add(g);
+        }
 
-        //TrackExistingGeneros(livroDb.Generos);
+        TrackExistingGeneros(livroDb.Generos);
         _context.Entry(livroDb).CurrentValues.SetValues(livro);
 
         return await Save();
