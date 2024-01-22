@@ -1,12 +1,14 @@
 <div>
 <form [formGroup]="queryForm">
     <h3>Filtrar por</h3>
-    <label class="block">Título</label>
+    <label class="block title">Título</label>
     <input type="text" formControlName="titulo">
-    <label class="block">Autor</label>
+    <label class="block title">Autor</label>
     <input type="text" formControlName="autor">
 
-    <label class="block">Generos</label>
+    <br><br>
+
+    <label class="block title">Generos</label>
 
     <cdk-virtual-scroll-viewport itemSize="10">
         <span *cdkVirtualFor="let genero of generos" class="block">
@@ -17,14 +19,14 @@
 
     <br>
     <section>
-        <b>Lançado entre</b>
-        <label class="block">Data Inicial</label>
+        <b>Lançado entre:</b>
+        <label class="block title">Data Inicial</label>
         <input type="date" formControlName="dataInicial">
-        <label class="block">Data Final</label>
+        <label class="block title">Data Final</label>
         <input type="date" formControlName="dataFinal">
     </section>
 
-    <label>Cópias Disponiveis?</label>
+    <label class="title">Cópias Disponiveis?</label>
     <input type="checkbox" formControlName="areThereCopies">
 
     <br><br>
