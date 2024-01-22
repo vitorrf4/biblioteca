@@ -16,10 +16,6 @@ export class SalvarComponent {
   id: number = 0;
   generosList: Genero[] = [];
 
-  get debug() {
-    return this.form.value;
-  }
-
   constructor(private livrosService: LivrosService,
               private generoService: GenerosService,
               private route: Router,
@@ -65,9 +61,10 @@ export class SalvarComponent {
     this.generos.removeAt(index);
   }
 
-  validarLivro(livro: Livro) {
-    if (!livro.titulo || !livro.autor || !livro.dataPublicacao
-      || livro.copias == null) {
+  isLivroValid(livro: Livro) {
+    if (!livro.titulo || !livro.titulo.trim()
+      || !livro.autor || !livro.autor.trim()
+      || !livro.dataPublicacao || livro.copias == null) {
       alert("Todos os campos devem ser preenchidos");
       return false;
     }
@@ -76,10 +73,10 @@ export class SalvarComponent {
       alert("Numero de cópias inválido");
       return false;
     }
-
+1
     for (let g of livro.generos) {
       if (!g.nome) {
-        alert("O nome do gênero não deve estar vazio")
+        alert("O gênero incluído não deve estar vazio")
         return false;
       }
     }
@@ -90,7 +87,7 @@ export class SalvarComponent {
   onSubmit() {
     const livro: Livro = this.form.value;
 
-    if (!this.validarLivro(livro)) {
+    if (!this.isLivroValid(livro)) {
       return;
     }
 
@@ -104,10 +101,10 @@ export class SalvarComponent {
 
     salvar.subscribe({
       next: async () => {
+        alert("Livro salvo com sucesso!");
         await this.route.navigateByUrl("/listar");
       },
       error: e => {
-        // TODO: log errors on back not here
         alert("Erro na aplicação, tente mais tarde");
         console.log(e);
       }

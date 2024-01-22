@@ -8,7 +8,8 @@ export class Livro {
   copias: number = 0;
   generos: Genero[] = [];
 
-  constructor(titulo: string, autor: string, dataPublicacao: Date, copias: number, generos: Genero[]) {
+  constructor(titulo: string, autor: string, dataPublicacao: Date,
+              generos: Genero[], copias: number = 0) {
     this.titulo = titulo;
     this.autor = autor;
     this.dataPublicacao = dataPublicacao;
