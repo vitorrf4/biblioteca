@@ -78,7 +78,7 @@ export class SalvarComponent implements OnInit {
       alert("Numero de cópias inválido");
       return false;
     }
-1
+
     for (let g of livro.generos) {
       if (!g.nome || !g.nome.trim()) {
         alert("O gênero incluído não deve estar vazio")
