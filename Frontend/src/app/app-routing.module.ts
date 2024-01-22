@@ -6,7 +6,8 @@ import {SalvarComponent} from "./components/salvar/salvar.component";
 const routes: Routes = [
   { path: "listar", component: ListarComponent },
   { path: "salvar", component: SalvarComponent },
-  { path: "salvar/:id", component: SalvarComponent }
+  { path: "salvar/:id", component: SalvarComponent },
+  { path: "**", redirectTo: "listar" }
 ];
 
 @NgModule({
