@@ -1,6 +1,6 @@
 <div id="salvar_wrapper">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2>Novo Livro</h2>
+    <h2 class="center">Novo Livro</h2>
 
     <label class="block title">Titulo</label>
     <input type="text" formControlName="titulo" required/>
@@ -19,7 +19,7 @@
 
       <div *ngFor="let genero of generos.controls; let i=index" [formGroupName]="i">
         <label class="title">Gênero {{i+1}}:</label>
-        <input type="text" formControlName="nome" list="generos">
+        <input type="text" formControlName="nome" list="generos" id="generos_input">
         <datalist id="generos">
           <option *ngFor="let g of generosList" >{{g.nome}}
         </datalist>
@@ -30,7 +30,9 @@
     </div>
 
     <br>
-    <button type="submit">Salvar</button>
+    <div class="center">
+      <button type="submit" class="button_create">Salvar</button>
+    </div>
   </form>
 </div>
 

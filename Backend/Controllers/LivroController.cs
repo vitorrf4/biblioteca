@@ -9,7 +9,7 @@ namespace Biblioteca.Controllers;
 public class LivroController : ControllerBase
 {
     private readonly ILogger<LivroController> _logger;
-    private readonly LivroService _service; 
+    private readonly LivroService _service;
 
     public LivroController(ILogger<LivroController> logger, LivroService service)
     {
@@ -45,7 +45,8 @@ public class LivroController : ControllerBase
 
             return Ok(livro);
 
-        } catch(Exception e)
+        }
+        catch (Exception e)
         {
             _logger.LogError("Erro: " + e);
             return StatusCode(500, "Erro na aplicação");
@@ -59,12 +60,13 @@ public class LivroController : ControllerBase
         {
             if (!_service.IsLivroValid(livro))
                 return BadRequest();
-            
+
             await _service.CreateLivro(livro);
 
             return Created($"livros/{livro.Id}", livro);
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             _logger.LogError("Erro: " + e);
             return StatusCode(500, "Erro na aplicação");

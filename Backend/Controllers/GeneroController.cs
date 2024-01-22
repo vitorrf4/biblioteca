@@ -1,8 +1,5 @@
 ﻿using Biblioteca.Data;
 using Biblioteca.Models;
-using Biblioteca.Services;
-using Biblioteca.Controllers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
