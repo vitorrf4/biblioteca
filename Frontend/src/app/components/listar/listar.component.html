@@ -9,11 +9,11 @@
     </div>
 
     <div *ngFor="let livro of livrosFiltrados;index as i" class="book_div">
-      <p>Titulo: {{livro.titulo}}</p>
-      <p>Autor: {{livro.autor}}</p>
-      <p>Data de Publicação: {{livro.dataPublicacao | date: "dd/MM/yyyy"}}</p>
-      <p>Cópias: {{livro.copias}}</p>
-      <p *ngIf="livro.generos.length > 0">Gêneros:
+      <p><b>Titulo: </b>{{livro.titulo}}</p>
+      <p><b>Autor: </b>{{livro.autor}}</p>
+      <p><b>Data de Publicação: </b> {{livro.dataPublicacao | date: "dd/MM/yyyy"}}</p>
+      <p><b>Cópias: </b>{{livro.copias}}</p>
+      <p *ngIf="livro.generos.length > 0"><b>Gêneros:</b>
         <span *ngFor="let genero of livro.generos; index as i">
           {{genero.nome}}<span *ngIf="i < livro.generos.length - 1" >,</span>
         </span>
