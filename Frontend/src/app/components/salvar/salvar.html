@@ -1,24 +1,24 @@
 <div id="salvar_wrapper">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2>Livro</h2>
+    <h2>Novo Livro</h2>
 
-    <label class="block">Titulo</label>
+    <label class="block title">Titulo</label>
     <input type="text" formControlName="titulo" required/>
 
-    <label class="block">Autor</label>
+    <label class="block title">Autor</label>
     <input type="text" formControlName="autor" required />
 
-    <label class="block">Data de Publicação</label>
+    <label class="block title">Data de Publicação</label>
     <input type="date" formControlName="dataPublicacao" required />
 
-    <label class="block">Copias</label>
+    <label class="block title">Copias</label>
     <input type="number" formControlName="copias" required />
 
     <div formArrayName="generos">
       <h2>Gêneros</h2>
 
       <div *ngFor="let genero of generos.controls; let i=index" [formGroupName]="i">
-        <label>Gênero {{i+1}}:</label>
+        <label class="title">Gênero {{i+1}}:</label>
         <input type="text" formControlName="nome" list="generos">
         <datalist id="generos">
           <option *ngFor="let g of generosList" >{{g.nome}}
