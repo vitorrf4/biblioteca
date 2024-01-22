@@ -40,7 +40,7 @@ public class LivroService
             AreGenerosValid(livro.Generos);
     }
 
-    public bool AreGenerosValid(List<Genero> generos)
+    public bool AreGenerosValid(HashSet<Genero> generos)
     {
         foreach (var genero in generos)
         {
@@ -60,7 +60,7 @@ public class LivroService
     }
 
 
-    private async void TrackExistingGeneros(List<Genero> generos)
+    private async void TrackExistingGeneros(HashSet<Genero> generos)
     {
         foreach (var genero in generos)
         {
@@ -86,7 +86,7 @@ public class LivroService
         if (livroDb == null)
             return false;
 
-        livroDb.Generos = new List<Genero>();
+        livroDb.Generos.Clear();
 
         foreach (var gen in livro.Generos)
         {
@@ -94,9 +94,9 @@ public class LivroService
                 .Where(g => g.Nome == gen.Nome)
                 .FirstOrDefaultAsync();
 
-            if (genDb != null && !livroDb.Generos.Contains(genDb))
+            if (genDb != null)
                 livroDb.Generos.Add(genDb);
-            else if (livroDb.Generos.Contains(gen))
+            else 
                 livroDb.Generos.Add(gen);
         }
 
