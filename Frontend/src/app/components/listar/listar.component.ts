@@ -41,7 +41,7 @@ export class ListarComponent implements OnInit {
     })
   }
 
-  async goToSalvarPage(livro: Livro) {
-    await this.router.navigateByUrl(`salvar/${livro.id}`, {state: livro});
+  async goToSalvarPage(livroId: number) {
+    await this.router.navigateByUrl(`salvar/${livroId}`);
   }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Genero} from "../../models/genero";
@@ -11,16 +11,20 @@ import {GenerosService} from "../../services/generos.service";
   templateUrl: './salvar.html',
   styleUrls: ['./salvar.component.css']
 })
-export class SalvarComponent {
-  form: FormGroup;
-  id: number = 0;
+export class SalvarComponent implements OnInit {
+  form!: FormGroup;
+  idFromRoute: number;
   generosList: Genero[] = [];
 
   constructor(private livrosService: LivrosService,
               private generoService: GenerosService,
-              private route: Router,
-              private fb: FormBuilder) {
+              private router: Router,
+              private fb: FormBuilder,
+              route: ActivatedRoute) {
+    this.idFromRoute  = Number(route.snapshot.paramMap.get('id') || 0);
+  }
 
+  ngOnInit() {
     this.generoService.getAll().subscribe(res => {
       this.generosList = res;
     });
@@ -34,15 +38,16 @@ export class SalvarComponent {
       generos: this.fb.array([]),
     });
 
-    const livroFromList = this.route.getCurrentNavigation()?.extras.state;
+    if (this.idFromRoute) {
+      let livroSent : Livro;
+      this.livrosService.getById(this.idFromRoute).subscribe(res => {
+        livroSent = res;
+        this.form.patchValue(livroSent);
 
-    if (livroFromList) {
-      this.id = livroFromList['id'];
-      this.form.patchValue(livroFromList);
-
-      for (let g of livroFromList['generos']) {
-        this.addGenero(g);
-      }
+        for (let g of livroSent.generos) {
+          this.addGenero(g);
+        }
+      });
     }
   }
 
@@ -93,7 +98,7 @@ export class SalvarComponent {
 
     let salvar;
 
-    if (this.id) {
+    if (this.idFromRoute) {
       salvar = this.livrosService.update(livro);
     } else {
       salvar = this.livrosService.create(livro);
@@ -102,7 +107,7 @@ export class SalvarComponent {
     salvar.subscribe({
       next: async () => {
         alert("Livro salvo com sucesso!");
-        await this.route.navigateByUrl("/listar");
+        await this.router.navigateByUrl("/listar");
       },
       error: e => {
         alert("Erro na aplicação, tente mais tarde");
