@@ -57,7 +57,7 @@ export class SalvarComponent implements OnInit {
 
   addGenero(genero: Genero = new Genero('')) {
     this.generos.push(this.fb.group({
-      id: genero.id,
+      id: 0,
       nome: genero.nome
     }));
   }

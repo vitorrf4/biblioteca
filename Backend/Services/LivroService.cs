@@ -40,13 +40,13 @@ public class LivroService
             AreGenerosValid(livro.Generos);
     }
 
-    public bool AreGenerosValid(List<Genero> generos) 
+    public bool AreGenerosValid(List<Genero> generos)
     {
-        foreach (var genero in generos) 
+        foreach (var genero in generos)
         {
             if (string.IsNullOrWhiteSpace(genero.Nome))
                 return false;
-        } 
+        }
 
         return true;
     }
@@ -86,21 +86,20 @@ public class LivroService
         if (livroDb == null)
             return false;
 
-        for (var i = 0; i < livroDb.Generos.Count; i++)
-        {
-            var genero = livroDb.Generos[i];
+        livroDb.Generos = new List<Genero>();
 
-            if (livro.Generos.Find(g => g.Id == genero.Id) == null)
-                livroDb.Generos.Remove(genero);
+        foreach (var gen in livro.Generos)
+        {
+            var genDb = await _context.Genero
+                .Where(g => g.Nome == gen.Nome)
+                .FirstOrDefaultAsync();
+
+            if (genDb != null && !livroDb.Generos.Contains(genDb))
+                livroDb.Generos.Add(genDb);
+            else if (livroDb.Generos.Contains(gen))
+                livroDb.Generos.Add(gen);
         }
 
-        foreach (var g in livro.Generos)
-        {
-            if (g.Id == 0)
-                livroDb.Generos.Add(g);
-        }
-
-        TrackExistingGeneros(livroDb.Generos);
         _context.Entry(livroDb).CurrentValues.SetValues(livro);
 
         return await Save();
