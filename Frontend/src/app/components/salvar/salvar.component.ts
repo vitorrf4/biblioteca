@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Genero} from "../../models/genero";
@@ -31,10 +31,10 @@ export class SalvarComponent {
 
     this.form = this.fb.group({
       id: [0],
-      titulo: [''],
-      autor: [''],
-      dataPublicacao: [new Date()],
-      copias: [0],
+      titulo: [null, Validators.required],
+      autor: [null, Validators.required],
+      dataPublicacao: [null, Validators.required],
+      copias: [0, Validators.required],
       generos: this.fb.array([]),
     });
 
@@ -50,7 +50,7 @@ export class SalvarComponent {
     }
   }
 
-  get generos(): FormArray {
+  get generos() {
     return this.form.get('generos') as FormArray;
   }
 
@@ -65,8 +65,35 @@ export class SalvarComponent {
     this.generos.removeAt(index);
   }
 
+  validarLivro(livro: Livro) {
+    if (!livro.titulo || !livro.autor || !livro.dataPublicacao
+      || livro.copias == null) {
+      alert("Todos os campos devem ser preenchidos");
+      return false;
+    }
+
+    if (livro.copias < 0 || livro.copias > Number.MAX_VALUE) {
+      alert("Numero de cópias inválido");
+      return false;
+    }
+
+    for (let g of livro.generos) {
+      if (!g.nome) {
+        alert("O nome do gênero não deve estar vazio")
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   onSubmit() {
     const livro: Livro = this.form.value;
+
+    if (!this.validarLivro(livro)) {
+      return;
+    }
+
     let salvar;
 
     if (this.id) {

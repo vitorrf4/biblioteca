@@ -27,6 +27,7 @@
 
     <button type="button" (click)="addGenero()">+ Adicionar gênero</button>
   </div>
+  <div *ngIf="form.hasError('required')">Preencha todos os campos</div>
 
   <br>
   <button type="submit">Salvar</button>
