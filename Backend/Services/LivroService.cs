@@ -32,6 +32,25 @@ public class LivroService
         return await _context.Livro.AnyAsync(livro => livro.Id == id);
     }
 
+    public bool IsLivroValid(Livro livro)
+    {
+        return !string.IsNullOrWhiteSpace(livro.Titulo) &&
+            !string.IsNullOrWhiteSpace(livro.Autor) &&
+            livro.Copias >= 0 && !livro.DataPublicacao.Equals(null) &&
+            AreGenerosValid(livro.Generos);
+    }
+
+    public bool AreGenerosValid(List<Genero> generos) 
+    {
+        foreach (var genero in generos) 
+        {
+            if (string.IsNullOrWhiteSpace(genero.Nome))
+                return false;
+        } 
+
+        return true;
+    }
+
     public async Task<bool> CreateLivro(Livro livro)
     {
         TrackExistingGeneros(livro.Generos);
@@ -39,6 +58,7 @@ public class LivroService
         await _context.Livro.AddAsync(livro);
         return await Save();
     }
+
 
     private async void TrackExistingGeneros(List<Genero> generos)
     {

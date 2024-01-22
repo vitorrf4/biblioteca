@@ -57,6 +57,9 @@ public class LivroController : ControllerBase
     {
         try
         {
+            if (!_service.IsLivroValid(livro))
+                return BadRequest();
+            
             await _service.CreateLivro(livro);
 
             return Created($"livros/{livro.Id}", livro);
@@ -76,6 +79,9 @@ public class LivroController : ControllerBase
             var existsOnDb = await _service.DoesLivroExists(livro.Id);
             if (!existsOnDb)
                 return NotFound();
+
+            if (!_service.IsLivroValid(livro))
+                return BadRequest();
 
             await _service.UpdateLivro(livro);
 
