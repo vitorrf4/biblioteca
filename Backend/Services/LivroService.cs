@@ -104,9 +104,6 @@ public class LivroService
         TrackExistingGeneros(livroDb.Generos);
         _context.Entry(livroDb).CurrentValues.SetValues(livro);
 
-        _context.Attach(livroDb);
-        _context.Update(livroDb);
-
         return await Save();
     }
 
