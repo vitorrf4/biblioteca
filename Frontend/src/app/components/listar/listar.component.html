@@ -13,14 +13,14 @@
       <p>Autor: {{livro.autor}}</p>
       <p>Data de Publicação: {{livro.dataPublicacao | date: "dd/MM/yyyy"}}</p>
       <p>Cópias: {{livro.copias}}</p>
-      <p>Gêneros:
+      <p *ngIf="livro.generos.length > 0">Gêneros:
         <span *ngFor="let genero of livro.generos; index as i">
           {{genero.nome}}<span *ngIf="i < livro.generos.length - 1" >,</span>
         </span>
       </p>
 
-      <button (click)="irParaSalvarPagina(livro)">Atualizar</button>
-      <button (click)="deletarLivro(livro.id, i)">Deletar</button>
+      <button (click)="goToSalvarPage(livro)">Atualizar</button>
+      <button (click)="deleteLivro(livro.id, i)">Deletar</button>
     </div>
   </div>
 

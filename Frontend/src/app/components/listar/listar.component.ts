@@ -28,7 +28,7 @@ export class ListarComponent implements OnInit {
     this.hasNoBooks = !livrosFiltrados.length;
   }
 
-  deletarLivro(id: number, index: number) {
+  deleteLivro(id: number, index: number) {
     this.service.delete(id).subscribe({
       next: () => {
         alert("Item deletado");
@@ -41,7 +41,7 @@ export class ListarComponent implements OnInit {
     })
   }
 
-  async irParaSalvarPagina(livro: Livro) {
+  async goToSalvarPage(livro: Livro) {
     await this.router.navigateByUrl(`salvar/${livro.id}`, {state: livro});
   }
 }
