@@ -1,5 +1,5 @@
 <div>
-<form  [formGroup]="queryForm">
+<form [formGroup]="queryForm">
     <h3>Filtrar por</h3>
     <label class="block">Título</label>
     <input type="text" formControlName="titulo">
@@ -7,9 +7,10 @@
     <input type="text" formControlName="autor">
 
     <label class="block">Generos</label>
-    <select>
-        <option *ngFor="let genero of generos">{{genero.nome}}</option>
-    </select>
+    <span *ngFor="let genero of generos" class="block">
+        <label>{{genero.nome}}</label>
+        <input type="checkbox" (change)="checkGenero(genero, check.checked)" #check>
+    </span>
 
     <br><br>
     <section>
@@ -24,7 +25,7 @@
     <input type="checkbox" formControlName="areThereCopies">
 
     <br><br>
-    <button (click)="buscarLivro()"  class="block">Buscar</button>
+    <button (click)="buscarLivro()" class="block">Buscar</button>
     <button (click)="limparFiltros()">Limpar filtros</button>
 </form>
 </div>

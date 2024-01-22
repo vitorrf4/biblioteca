@@ -11,7 +11,7 @@
     <div *ngFor="let livro of livrosFiltrados;index as i" class="book_div">
       <p>Titulo: {{livro.titulo}}</p>
       <p>Autor: {{livro.autor}}</p>
-      <p>Data de Publicação: {{livro.dataPublicacao}}</p>
+      <p>Data de Publicação: {{livro.dataPublicacao | date: "dd/MM/yyyy"}}</p>
       <p>Cópias: {{livro.copias}}</p>
       <p>Gêneros:
         <span *ngFor="let genero of livro.generos">{{genero.nome}}, </span>
