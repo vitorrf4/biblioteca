@@ -9,3 +9,6 @@ div {
     background-color: #333;
     color: #fff;
 }
+cdk-virtual-scroll-viewport {
+    height: 15vh;
+}

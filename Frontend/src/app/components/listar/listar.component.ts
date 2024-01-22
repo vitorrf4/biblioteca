@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Livro} from "../../models/livro";
 import {LivrosService} from "../../services/livros.service";
 import {Router} from "@angular/router";

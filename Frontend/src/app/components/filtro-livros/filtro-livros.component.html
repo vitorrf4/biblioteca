@@ -7,12 +7,15 @@
     <input type="text" formControlName="autor">
 
     <label class="block">Generos</label>
-    <span *ngFor="let genero of generos" class="block">
-        <label>{{genero.nome}}</label>
-        <input type="checkbox" (change)="checkGenero(genero, check.checked)" #check>
-    </span>
 
-    <br><br>
+    <cdk-virtual-scroll-viewport itemSize="10">
+        <span *cdkVirtualFor="let genero of generos" class="block">
+            <label>{{genero.nome}}</label>
+            <input type="checkbox" (change)="checkGenero(genero, check.checked)" #check>
+        </span>
+    </cdk-virtual-scroll-viewport>
+
+    <br>
     <section>
         <b>Lançado entre</b>
         <label class="block">Data Inicial</label>
